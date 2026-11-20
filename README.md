@@ -1,6 +1,6 @@
 # Micfong Sans Math
 
-An OpenType math font that goes well with IBM Plex. It derived from [Lete Sans Math](https://github.com/abccsss/LeteSansMath) with its alphanumeric glyphs substituted by glyphs from [IBM Plex Sans](https://github.com/IBM/plex) and IBM Plex Mono.
+An OpenType math font that pairs with IBM Plex. It derived from [Lete Sans Math](https://github.com/abccsss/LeteSansMath) with its alphanumeric glyphs substituted by glyphs from [IBM Plex Sans](https://github.com/IBM/plex) and IBM Plex Mono.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/hero-dark.png">
