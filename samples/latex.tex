@@ -1,0 +1,128 @@
+% Micfong Sans Math in a LaTeX document, with IBM Plex for the text.
+% From this folder: xelatex latex.tex
+% The math setup works the same under LuaLaTeX. Only the CJK paragraphs depend on
+% xeCJK, which is XeLaTeX-only, and they need IBM Plex Sans SC, TC, JP, KR and
+% Devanagari installed. IBM Plex Sans and Mono come with TeX Live.
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=2.4cm]{geometry}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+\usepackage{upgreek}
+
+\setmainfont{IBMPlexSans}[
+  Extension = .otf, UprightFont = *-Regular, ItalicFont = *-Italic,
+  BoldFont = *-SemiBold, BoldItalicFont = *-SemiBoldItalic]
+\setmonofont{IBMPlexMono}[Extension = .otf, UprightFont = *-Regular, Scale = 0.88]
+
+% The math font. Path points at the fonts in this repository; drop it once the
+% fonts are installed. BoldFont gives \boldmath its own weight.
+\setmathfont{MicfongSansMath.otf}[
+  Path = ../dist/, BoldFont = MicfongSansMath-Bold.otf]
+
+\usepackage{xeCJK}
+\xeCJKsetup{CJKspace = true}
+\setCJKmainfont{IBM Plex Sans SC}
+\setCJKmonofont{IBM Plex Sans SC}
+\newCJKfontfamily\tcfont{IBM Plex Sans TC}
+\newCJKfontfamily\jpfont{IBM Plex Sans JP}
+\newCJKfontfamily\krfont{IBM Plex Sans KR}
+\newfontfamily\devanagarifont{IBM Plex Sans Devanagari}[Script = Devanagari]
+
+\usepackage{xcolor}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+% \lang[font switch]{language name}{paragraph}
+\newcommand{\lang}[3][]{\par\noindent
+  \makebox[2.4cm][l]{#1\footnotesize\color{gray}#2}%
+  \parbox[t]{\dimexpr\linewidth-2.4cm}{#1\raggedright #3}\par\medskip}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Micfong Sans Math}\par\smallskip
+\end{center}
+
+The equations in this document are set in Micfong Sans Math, a new open-source font for mathematics. The font is designed to be compatible with IBM Plex Sans, which is used for the body text.
+
+To use Micfong Sans Math in your own LaTeX documents, install the font and \texttt{unicode-math}, then add the following line to your document:
+
+\begin{verbatim}
+\setmathfont{MicfongSansMath.otf}[BoldFont = MicfongSansMath-Bold.otf]
+\end{verbatim}
+
+\section{Fourier series}
+
+Let $f\colon \mathbb{R} \to \mathbb{C}$ be $2\uppi$-periodic and integrable on $[-\uppi, \uppi]$.
+Its Fourier coefficients are
+\begin{equation}
+  \hat{f}(n) = \frac{1}{2\uppi} \int_{-\uppi}^{\uppi} f(x) \mathrm{e}^{-\mathrm{i}nx} \,\mathrm{d}x, \quad n \in \mathbb{Z},
+\end{equation}
+and Parseval's identity states that
+\begin{equation}\label{eq:parseval}
+  \sum_{n \in \mathbb{Z}} \lvert\hat{f}(n)\rvert^2 = \frac{1}{2\uppi} \int_{-\uppi}^{\uppi} \lvert f(x)\rvert^2 \,\mathrm{d}x.
+\end{equation}
+For $f(x) = x$ the coefficients are $\hat{f}(0) = 0$ and $\hat{f}(n) = (-1)^n \mathrm{i}/n$, so
+\eqref{eq:parseval} gives $2\sum_{n \ge 1} 1/n^2 = \uppi^2/3$, which is Euler's $\zeta(2) = \uppi^2/6$.
+
+\section{Linear algebra}
+
+A real symmetric matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$ has an orthonormal basis of eigenvectors,
+so $\mathbf{A} = \mathbf{Q} \boldsymbol{\Lambda} \mathbf{Q}^\top$ with $\mathbf{Q}^\top \mathbf{Q} = \mathbf{I}$ and $\boldsymbol{\Lambda} = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$.
+For example,
+\begin{equation}
+  \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}
+  = \frac{1}{2} \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}
+  \begin{pmatrix} 1 & 0 \\ 0 & 3 \end{pmatrix}
+  \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}, \quad
+  \det(\mathbf{A} - \lambda \mathbf{I}) = (\lambda - 1)(\lambda - 3).
+\end{equation}
+The Rayleigh quotient $R(\boldsymbol{x}) = (\boldsymbol{x}^\top \mathbf{A} \boldsymbol{x}) / (\boldsymbol{x}^\top \boldsymbol{x})$
+takes values in $[\lambda_{\min}, \lambda_{\max}]$.
+
+\section{Probability}
+
+A random variable $X \sim \mathcal{N}(\mu, \sigma^2)$ has density
+\begin{equation}
+  \varphi(x) = \frac{1}{\sigma\sqrt{2\uppi}} \exp\biggl(-\frac{(x - \mu)^2}{2\sigma^2}\biggr),
+\end{equation}
+with $\mathbb{E}[X] = \mu$ and $\operatorname{Var}(X) = \sigma^2$. Whatever the distribution,
+as long as the variance is finite, Chebyshev's inequality bounds the tails:
+\begin{equation}
+  \mathbb{P}(\lvert X - \mu\rvert \ge k\sigma) \le \frac{1}{k^2}, \quad k > 0.
+\end{equation}
+
+\section{Physics}
+
+Maxwell's equations in a vacuum:
+\begin{equation}
+\begin{aligned}
+  \nabla \cdot \boldsymbol{E} &= \frac{\rho}{\varepsilon_0}, &
+  \nabla \times \boldsymbol{E} &= -\frac{\partial \boldsymbol{B}}{\partial t}, \\
+  \nabla \cdot \boldsymbol{B} &= 0, &
+  \nabla \times \boldsymbol{B} &= \mu_0 \boldsymbol{J} + \mu_0 \varepsilon_0 \frac{\partial \boldsymbol{E}}{\partial t}.
+\end{aligned}
+\end{equation}
+The time-dependent Schrödinger equation is
+$\mathrm{i}\hbar\, \partial_t \Psi(\boldsymbol{r}, t) = \hat{H} \Psi(\boldsymbol{r}, t)$ with
+$\hat{H} = -\frac{\hbar^2}{2m} \nabla^2 + V(\boldsymbol{r})$.
+
+\section{Multilingual support}
+
+Micfong Sans Math takes its letters from IBM Plex Sans, so it sits naturally beside the other
+IBM Plex families. Each paragraph below is set in the matching one.
+
+\lang{简体中文}{设 $f$ 在区间 $[a, b]$ 上连续，且 $F' = f$，则
+  $\int_a^b f(x) \,\mathrm{d}x = F(b) - F(a)$。这就是微积分基本定理。}
+\lang[\tcfont]{繁體中文}{若 $\lvert q\rvert < 1$，則幾何級數 $\sum_{n=0}^{\infty} q^n$ 收斂，且其和為 $1/(1 - q)$。}
+\lang[\jpfont]{日本語}{オイラーの公式 $\mathrm{e}^{\mathrm{i}\theta} = \cos\theta + \mathrm{i} \sin\theta$ において $\theta = \uppi$ とおくと、オイラーの等式 \mbox{$\mathrm{e}^{\mathrm{i}\uppi} + 1 = 0$} が得られる。}
+\lang[\krfont\xeCJKsetup{CJKecglue = {}}]{한국어}{직각삼각형에서 빗변의 길이를 $c$, 나머지 두 변의 길이를 $a$, $b$라고 하면 $a^2 + b^2 = c^2$이 성립한다.}
+\lang{Русский}{Для любого $\varepsilon > 0$ существует $\delta > 0$ такое, что
+  $\lvert f(x) - f(a)\rvert < \varepsilon$ для всех $x$, удовлетворяющих $\lvert x - a\rvert < \delta$.
+  Тогда говорят, что функция $f$ непрерывна в точке $a$.}
+\lang{Ελληνικά}{Το εμβαδόν κυκλικού δίσκου ακτίνας $\rho$ είναι $E = \uppi \rho^2$, ενώ το μήκος του κύκλου είναι $L = 2\uppi\rho$.}
+\lang[\devanagarifont]{हिन्दी}{द्विघात समीकरण $ax^2 + bx + c = 0$, जहाँ $a \ne 0$, के मूल
+  $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ होते हैं।}
+
+\end{document}
