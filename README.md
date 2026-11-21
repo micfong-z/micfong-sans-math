@@ -10,7 +10,7 @@ An OpenType math font that pairs with IBM Plex. It derived from [Lete Sans Math]
 
 ## Install
 
-Download `MicfongSansMath.otf` and `MicfongSansMath-Bold.otf` from [Releases](https://github.com/micfong-z/micfong-sans-math/releases), or from [`dist/`](dist), and install the fonts.
+For Typst and other applications that use system fonts, download `MicfongSansMath.otf` and `MicfongSansMath-Bold.otf` from [Releases](https://github.com/micfong-z/micfong-sans-math/releases), or from [`dist/`](dist), and install the fonts.
 
 ## Use
 
@@ -22,10 +22,22 @@ Download `MicfongSansMath.otf` and `MicfongSansMath-Bold.otf` from [Releases](ht
 
 **LaTeX** (XeLaTeX or LuaLaTeX)
 
+Adding this line to your document should load the package directly:
+
+```latex
+\usepackage{micfong-sans-math}
+```
+
+For a local copy, place [`micfong-sans-math.sty`](latex/micfong-sans-math.sty) and both [OpenType fonts](dist/) alongside your main `.tex` file.
+
+If you already manage your math fonts through `unicode-math`, you can select the font directly.
+
 ```latex
 \usepackage{unicode-math}
 \setmathfont{MicfongSansMath.otf}[BoldFont = MicfongSansMath-Bold.otf]
 ```
+
+This repository also contains the content of the LaTeX package `micfong-sans-math`. You can also view this package on [CTAN](https://ctan.org/pkg/micfong-sans-math).
 
 ## Samples
 
@@ -58,6 +70,8 @@ Needs `python3`, [`uv`](https://docs.astral.sh/uv/) and `typst`.
 ```
 
 `build.sh` writes the fonts to `dist/` and a release archive to `build/`. If it hits GitHub's API rate limit, set `GITHUB_TOKEN`. `render.sh` also needs TeX Live and IBM Plex Sans SC, TC, JP, KR and Devanagari installed.
+
+Run `./scripts/package-ctan.sh` with LuaLaTeX and `zip` available to compile the LaTeX manual and create `build/micfong-sans-math.zip` from the fonts in `dist/`.
 
 ## Contributing
 

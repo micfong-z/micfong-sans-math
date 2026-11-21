@@ -1,0 +1,74 @@
+% Copyright (c) 2026 Zixuan Zhang. Distributed under the MIT License.
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{micfong-sans-math}
+\usepackage[hidelinks,bookmarks=false,pdfpagelabels=false]{hyperref}
+
+\setmainfont{lmsans10-regular.otf}[
+  BoldFont = lmsans10-bold.otf, ItalicFont = lmsans10-oblique.otf]
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\pagestyle{empty}
+
+\begin{document}
+
+{\LARGE\bfseries Micfong Sans Math}\par
+Version 0.10 \hfill Zixuan Zhang
+
+\section*{Use in a document}
+
+Compile with LuaLaTeX or XeLaTeX. Add the following line to your preamble.
+
+\begin{verbatim}
+\usepackage{micfong-sans-math}
+\end{verbatim}
+
+The package loads \texttt{unicode-math} and selects Micfong Sans Math.
+Choose your text font separately with \verb|\setmainfont|. The math font was
+designed to pair with IBM Plex Sans and can be used with any text font.
+
+\[
+  f(x) = \sum_{n=1}^{\infty} \frac{\sin(nx)}{n^2},
+  \qquad \int_0^{2\pi} f(x)^2\,\mathrm{d}x
+    = \pi \sum_{n=1}^{\infty} \frac{1}{n^4}.
+\]
+
+Use \verb|\symbf| to bold individual symbols. To switch an entire formula to
+the bold font, use \verb|\boldmath| outside math mode, as in
+\verb|{\boldmath $\alpha + x^2 = 1$}|. The bold font has a smaller character
+set than the regular font, including limited coverage of specialised symbols.
+
+\[
+  \symbf{A} \symbf{x} = \lambda \symbf{x}
+  \qquad
+  \text{Regular } \alpha + x^2 = 1
+  \qquad
+  \text{Bold } \text{\boldmath$\alpha + x^2 = 1$}
+\]
+
+\section*{Installation}
+
+Install \texttt{micfong-sans-math} through your TeX distribution's package
+manager when available. For a single project, copy the following files from
+the archive into the folder that contains your main \texttt{.tex} file.
+
+\begin{verbatim}
+micfong-sans-math.sty
+MicfongSansMath.otf
+MicfongSansMath-Bold.otf
+\end{verbatim}
+
+Your TeX distribution must also provide \texttt{unicode-math} and \texttt{iftex}.
+
+\section*{Credits and license}
+
+Micfong Sans Math derives from Lete Sans Math by Chenjing Bu and Daniel Flipo,
+with letters and numbers drawn from IBM Plex Sans and IBM Plex Mono.
+The fonts are licensed under the SIL Open Font License 1.1. The LaTeX package,
+documentation, and build scripts use the MIT License.
+
+\href{https://github.com/micfong-z/micfong-sans-math}{Project repository}
+\quad
+\href{https://github.com/micfong-z/micfong-sans-math/issues}{Issue tracker}
+
+\end{document}
