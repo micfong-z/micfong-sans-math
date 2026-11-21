@@ -1,6 +1,6 @@
 # How Micfong Sans Math is made
 
-> [!INFO]
+> [!IMPORTANT]
 > This document is almost fully AI-generated.
 
 Micfong Sans Math is Lete Sans Math with the letters and numbers swapped for IBM Plex. Nothing is drawn by hand: `scripts/patch_font.py` copies Plex outlines into Lete's font with [fontTools](https://github.com/fonttools/fonttools), then recalculates the math metrics that depend on letter shapes. Lete keeps every symbol, its `MATH` constants and its glyph order, so formulas are laid out by Lete's rules with Plex letters in them.
